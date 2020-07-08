@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  position: relative;
 }
 
 .App-logo {
@@ -35,4 +36,20 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+body {
+  background-color: #EAECEC;
+  font-family: 'Roboto', sans-serif;
+  color: #444444;
+}
+
+a {
+  text-decoration: none;
+  color: #444444;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #cccccc;
 }

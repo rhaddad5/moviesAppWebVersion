@@ -1,0 +1,14 @@
+.movieCard h2 {
+  color: #cccccc !important;
+}
+
+.movieCard p {
+  color: #444444;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+
