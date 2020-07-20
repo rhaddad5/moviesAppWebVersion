@@ -7,7 +7,7 @@ export default function MoviesList({movies}) {
 
   return(
     <div className="container">
-      <ul class="cards">
+      <ul className="cards">
         {(movies.map(movie => {
         const imagePath = `https://image.tmdb.org/t/p/w400/${movie.poster_path}`;
         const idPath = `/${movie.id}`;

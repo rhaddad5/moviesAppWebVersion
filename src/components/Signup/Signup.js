@@ -4,6 +4,7 @@ import {signup} from "../../API/Signup";
 import "../../styles/loginAndSignup.css";
 import {CloudinaryContext, Image} from "cloudinary-react";
 import {fetchPhotos, openUploadWidget} from "../../CloudinaryService";
+import {useHistory} from "react-router-dom";
 
 export default function Signup() {
 
@@ -11,6 +12,7 @@ export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [images, setImages] = useState([]);
+  const history = useHistory();
 
   const handleChangeUsername = (event) => {
     setUsername(event.target.value);
@@ -26,6 +28,7 @@ export default function Signup() {
 
   const createUser = () => {
     signup(username, email, password, images[0]);
+    history.push("/login");
   };
 
   const startUpload = (tag) => {
@@ -34,6 +37,7 @@ export default function Signup() {
         tags: [tag],
         uploadPreset: "achmm5wn"
     };
+
     openUploadWidget(uploadOptions, (error, photos) => {
         if (!error) {
           if(photos.event === "success"){

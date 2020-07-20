@@ -31,7 +31,7 @@ export default function MovieDetails() {
               <div className="card__title">{movieInfo.title}</div>
               <h2 className="card__text">{movieInfo.release_date}</h2>
               <p className="card__text">{movieInfo.overview}</p>
-              {sessionStorage.getItem("accessToken") ? <FavouriteButton className="star" movieTitle={movieInfo.title} movieDate={movieInfo.release_date} movieId={movieInfo.id} movieOverview={movieInfo.overview} movieImagePath={imagePath}/> : ""}
+              {sessionStorage.getItem("accessToken") ? <FavouriteButton className="star" movieTitle={movieInfo.title} movieDate={movieInfo.release_date} movieId={id} movieOverview={movieInfo.overview} movieImagePath={imagePath}/> : ""}
             </div>
           </div>
         </li>
