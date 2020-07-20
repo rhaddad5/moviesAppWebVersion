@@ -5,6 +5,7 @@ import "../../styles/loginAndSignup.css";
 import {CloudinaryContext, Image} from "cloudinary-react";
 import {fetchPhotos, openUploadWidget} from "../../CloudinaryService";
 import {useHistory} from "react-router-dom";
+import {Alert} from "react-bootstrap";
 
 export default function Signup() {
 
@@ -14,19 +15,47 @@ export default function Signup() {
   const [images, setImages] = useState([]);
   const history = useHistory();
 
+
   const handleChangeUsername = (event) => {
-    setUsername(event.target.value);
+    if(event.target.value.length < 3) {
+      const formAlert = document.querySelector(".formAlert");
+      formAlert.classList.remove("disNone");
+      formAlert.innerHTML = "Please enter a username";
+    } else {
+      const formAlert = document.querySelector(".formAlert");
+      formAlert.classList.add("disNone");
+      setUsername(event.target.value);
+    }
   };
 
   const handleChangeEmail = (event) => {
-    setEmail(event.target.value);
+    const regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if(regex.test(event.target.value)) {
+      setEmail(event.target.value);
+      const formAlert = document.querySelector(".formAlert");
+      formAlert.classList.add("disNone");
+    } else {
+      const formAlert = document.querySelector(".formAlert");
+      formAlert.classList.remove("disNone");
+      formAlert.innerHTML = "Please enter a valid email";
+    }
   };
 
   const handleChangePassword = (event) => {
-    setPassword(event.target.value);
+    const regex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+    if(regex.test(event.target.value)) {
+      setPassword(event.target.value);
+      const formAlert = document.querySelector(".formAlert");
+      formAlert.classList.add("disNone");
+    } else {
+      const formAlert = document.querySelector(".formAlert");
+      formAlert.classList.remove("disNone");
+      formAlert.innerHTML = "Your password must contain at least 8 characters with 1 uppercase letter, 1 lowercase letter, one number and one special character";
+    }
   };
 
   const createUser = () => {
+
     signup(username, email, password, images[0]);
     history.push("/login");
   };
@@ -83,6 +112,8 @@ export default function Signup() {
         </section>
         <br></br>
         <Button variant="danger" type="submit" onClick={() => {createUser()}}>Submit</Button>
+          <Alert variant="danger" className="formAlert disNone">
+          </Alert>
       </Form>
     </CloudinaryContext>
   )
