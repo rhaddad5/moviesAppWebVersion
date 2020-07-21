@@ -1,8 +1,8 @@
 const initialState = [];
 
-export const moviesListReducer = (state = initialState, action) => {
+export const movieDetailsReducer = (state = initialState, action) => {
   switch(action.type) {
-    case "ADD_MOVIES":
+    case "ADD_MOVIE_DETAILS":
       return action.payload.data;
     default:
       return state;

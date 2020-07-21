@@ -15,7 +15,6 @@ export default function Signup() {
   const [images, setImages] = useState([]);
   const history = useHistory();
 
-
   const handleChangeUsername = (event) => {
     if(event.target.value.length < 3) {
       const formAlert = document.querySelector(".formAlert");
@@ -55,7 +54,6 @@ export default function Signup() {
   };
 
   const createUser = () => {
-
     signup(username, email, password, images[0]);
     history.push("/login");
   };
@@ -111,7 +109,7 @@ export default function Signup() {
                />)}
         </section>
         <br></br>
-        <Button variant="danger" type="submit" onClick={() => {createUser()}}>Submit</Button>
+        <Button variant="danger" type="submit" className="loginSignupBtn" onClick={() => {createUser()}}>Submit</Button>
           <Alert variant="danger" className="formAlert disNone">
           </Alert>
       </Form>

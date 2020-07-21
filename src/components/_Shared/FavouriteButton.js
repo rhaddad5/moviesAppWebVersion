@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useLayoutEffect} from "react";
+import React, {useState, useEffect} from "react";
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar as fasStar } from '@fortawesome/free-solid-svg-icons'
@@ -15,35 +15,28 @@ export default function FavouriteButton({movieTitle, movieDate, movieId, movieOv
 
   useEffect(() => {
     isFav();
-    console.log(favMovie)
   }, []);
 
   const dispatch = useDispatch();
 
-  const favouriteMovies = useSelector(state => state.favMoviesReducer);
-  console.log(favouriteMovies)
   let favMovie = [];
 
   const isFav = () => {
-    console.log("coucou")
-    console.log(typeof parseInt(movieId, 10))
     getFavouriteMovies(dispatch);
-    favouriteMovies.forEach((movie) => {
-      console.log('hello')
-      console.log(typeof movie.tmdbId)
-      console.log(movie.tmdbId === parseInt(movieId, 10))
-      if((movie.tmdbId === parseInt(movieId, 10))) {
-        favMovie.push(true);
+    const favouriteMovies = JSON.parse(sessionStorage.getItem("favMovies"));
+    if(favouriteMovies) {
+      favouriteMovies.forEach((movie) => {
+        if((movie.tmdbId === parseInt(movieId, 10))) {
+          favMovie.push(true);
+        }
+      });
+      if(favMovie[0]) {
+        setFav(true);
+      } else {
+        setFav(false);
       }
-    });
-    if(favMovie[0]) {
-      setFav(true);
-    } else {
-      setFav(false);
     }
   }
-
-    console.log(fav)
 
   const toggleFavStatus = () => {
     setFav(!fav);

@@ -1,4 +1,4 @@
-import React, {useReducer, useEffect} from "react";
+import React from "react";
 import "../../styles/navbar.css";
 import {Navbar, Nav} from "react-bootstrap";
 
@@ -9,6 +9,9 @@ export default function NavbarMovie() {
 
   const logout = () => {
     sessionStorage.removeItem("accessToken");
+    sessionStorage.removeItem("imageUrl");
+    sessionStorage.removeItem("movies");
+    sessionStorage.removeItem("favMovies");
     document.location.reload(true);
   }
 

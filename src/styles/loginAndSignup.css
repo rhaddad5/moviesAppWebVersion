@@ -22,3 +22,13 @@
 .disNone {
   display: none;
 }
+
+.loginSignupBtn {
+  background-color: #4E1214;
+  border-color: #4E1214;
+}
+
+.loginSignupBtn:hover {
+  background-color: #7c1d21;
+  border-color: #7c1d21;
+}

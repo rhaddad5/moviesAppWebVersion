@@ -19,6 +19,9 @@ export const getFavouriteMovies = (dispatch) => {
   const token = sessionStorage.getItem("accessToken");
   const headers = {"Authorization": `Bearer ${token}`};
   axios.get("http://localhost:8000/movies",  {headers: headers})
-  .then((res) => dispatch(fetchFavouriteMovies(res.data)))
+  .then((res) => {
+    dispatch(fetchFavouriteMovies(res.data))
+    sessionStorage.setItem('favMovies', JSON.stringify(res.data));
+  })
   .catch((e) => console.log("ERREUR GET FAV", e))
 };

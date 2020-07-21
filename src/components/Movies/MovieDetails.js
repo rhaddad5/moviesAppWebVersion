@@ -16,7 +16,7 @@ export default function MovieDetails() {
     movieDetailsSearch(id, dispatch);
   }, []);
 
-  const movieInfo = useSelector(state => state.moviesListReducer);
+  const movieInfo = useSelector(state => state.movieDetailsReducer);
 
   const imagePath = `https://image.tmdb.org/t/p/w400/${movieInfo.poster_path}`;
 
