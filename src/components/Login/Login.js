@@ -4,11 +4,13 @@ import {login} from "../../API/Login";
 import {useHistory} from "react-router-dom";
 import "../../styles/loginAndSignup.css";
 import "../../styles/alerts.css";
+import {Alert} from "react-bootstrap";
 
-export default function Login() {
+export default function Login({location}) {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState(false);
   const history = useHistory();
 
   const handleChangeEmail = (event) => {
@@ -19,10 +21,16 @@ export default function Login() {
     setPassword(event.target.value);
   };
 
-  const loginUser = (event) => {
-    event.preventDefault();
-    login(email, password);
-    history.push("/");
+  const loginUser = () => {
+    login(email, password)
+    .then(data => {
+      console.log(data.response)
+      if(data.response) {
+        setErrorMessage(data.response.data)
+      } else {
+        history.push("/")
+      }
+    })
   };
 
   return(
@@ -38,7 +46,13 @@ export default function Login() {
           <Form.Label>Enter Password</Form.Label>
           <Form.Control type="password" className="inputLogin" placeholder="Password" onChange={handleChangePassword}/>
         </Form.Group>
-        <Button variant="danger" className="loginSignupBtn" type="submit" onClick={loginUser}>Login</Button>
+        <Button variant="danger" className="loginSignupBtn" onClick={loginUser}>Login</Button>
+        {errorMessage ?
+          (<Alert variant="danger" className="formAlert">
+            {errorMessage}
+          </Alert>)
+          : ""
+        }
       </Form>
   )
 }

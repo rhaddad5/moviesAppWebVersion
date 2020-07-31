@@ -12,31 +12,26 @@ export default function Signup() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState(false);
   const [images, setImages] = useState([]);
   const history = useHistory();
 
   const handleChangeUsername = (event) => {
     if(event.target.value.length < 3) {
-      const formAlert = document.querySelector(".formAlert");
-      formAlert.classList.remove("disNone");
-      formAlert.innerHTML = "Please enter a username";
+      setErrorMessage("Please enter a username");
     } else {
-      const formAlert = document.querySelector(".formAlert");
-      formAlert.classList.add("disNone");
-      setUsername(event.target.value);
+      setErrorMessage(false);
     }
+    setUsername(event.target.value);
   };
 
   const handleChangeEmail = (event) => {
     const regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if(regex.test(event.target.value)) {
       setEmail(event.target.value);
-      const formAlert = document.querySelector(".formAlert");
-      formAlert.classList.add("disNone");
+      setErrorMessage(false);
     } else {
-      const formAlert = document.querySelector(".formAlert");
-      formAlert.classList.remove("disNone");
-      formAlert.innerHTML = "Please enter a valid email";
+      setErrorMessage("Please enter a valid email");
     }
   };
 
@@ -44,18 +39,22 @@ export default function Signup() {
     const regex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
     if(regex.test(event.target.value)) {
       setPassword(event.target.value);
-      const formAlert = document.querySelector(".formAlert");
-      formAlert.classList.add("disNone");
+      setErrorMessage(false);
     } else {
-      const formAlert = document.querySelector(".formAlert");
-      formAlert.classList.remove("disNone");
-      formAlert.innerHTML = "Your password must contain at least 8 characters with 1 uppercase letter, 1 lowercase letter, one number and one special character";
+      setErrorMessage("Your password must contain at least 8 characters with 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character");
     }
   };
 
   const createUser = () => {
-    signup(username, email, password, images[0]);
-    history.push("/login");
+    signup(username, email, password)
+    .then(data => {
+      console.log(data.response)
+      if(data.response) {
+        setErrorMessage(data.response.data)
+      } else {
+        history.push("/login")
+      }
+    })
   };
 
   const startUpload = (tag) => {
@@ -109,10 +108,14 @@ export default function Signup() {
                />)}
         </section>
         <br></br>
-        <Button variant="danger" type="submit" className="loginSignupBtn" onClick={() => {createUser()}}>Submit</Button>
-          <Alert variant="danger" className="formAlert disNone">
-          </Alert>
+        <Button variant="danger"className="loginSignupBtn" onClick={() => {createUser()}}>Submit</Button>
       </Form>
+      {errorMessage ?
+        (<Alert variant="danger" className="formAlert">
+          {errorMessage}
+        </Alert>)
+        : ""
+      }
     </CloudinaryContext>
   )
 }

@@ -1,11 +1,30 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import "../../styles/navbar.css";
 import {Navbar, Nav} from "react-bootstrap";
 
 export default function NavbarMovie() {
 
-  const token = sessionStorage.getItem("accessToken");
-  let nav = null;
+  // let nav = null;
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+    useEffect(() => {
+    if(sessionStorage.getItem("accessToken")) {
+      // console.log("coucou");
+      setIsLoggedIn(true);
+      return;
+    }
+    // console.log( "pas coucou");
+    setIsLoggedIn(false);
+    return;
+  }, [sessionStorage.getItem("accessToken")]);
+
+  // useEffect(() => {
+  //   if(sessionStorage.getItem("accessToken")) {
+  //     console.log("coucou");
+  //     setIsLoggedIn(true);
+  //   }
+  // }, [isLoggedIn]);
 
   const logout = () => {
     sessionStorage.removeItem("accessToken");
@@ -17,7 +36,9 @@ export default function NavbarMovie() {
 
   const userAvatar = sessionStorage.getItem("imageUrl");
 
-  token ? nav =
+  return(
+    <Navbar bg="light">
+      {isLoggedIn ?
           (<Nav className="ml-auto">
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/mymovies">My movies</Nav.Link>
@@ -25,16 +46,12 @@ export default function NavbarMovie() {
             <Nav.Link href="#pricing">
               <img className="avatar dropdown-toggle" src={userAvatar} alt="User avatar"/>
             </Nav.Link>
-          </Nav>) : nav =
+          </Nav>) :
           (<Nav className="ml-auto">
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/login">Login</Nav.Link>
             <Nav.Link href="/signup">Signup</Nav.Link>
-          </Nav>)
-
-  return(
-    <Navbar bg="light">
-      {nav}
+          </Nav>)}
     </Navbar>
   )
 }
