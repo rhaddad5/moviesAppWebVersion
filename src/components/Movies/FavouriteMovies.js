@@ -17,6 +17,7 @@ export default function FavouriteMovies() {
 
   const usernames = [];
   favouriteMovies.map(movie => usernames.push(movie.user));
+  console.log(usernames)
 
   return(
     <div>

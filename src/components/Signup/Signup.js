@@ -46,7 +46,7 @@ export default function Signup() {
   };
 
   const createUser = () => {
-    signup(username, email, password)
+    signup(username, email, password, images[0])
     .then(data => {
       console.log(data.response)
       if(data.response) {

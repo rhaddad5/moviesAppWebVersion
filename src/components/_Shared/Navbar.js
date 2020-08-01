@@ -1,14 +1,23 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "../../styles/navbar.css";
 import {Navbar, Nav} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
-import {checkIfUserLoggedOut} from "../../redux/actions";
+import {checkIfUserLoggedIn, checkIfUserLoggedOut} from "../../redux/actions";
 
 export default function NavbarMovie() {
 
   const dispatch = useDispatch();
 
   const isLoggedIn = useSelector(state => state.loggedInReducer);
+
+  console.log(isLoggedIn);
+
+  useEffect(() => {
+    const token = sessionStorage.getItem('accessToken');
+    if(token) {
+      dispatch(checkIfUserLoggedIn(token));
+    }
+  }, []);
 
   const logout = () => {
     sessionStorage.removeItem("accessToken");
