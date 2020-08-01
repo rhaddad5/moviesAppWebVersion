@@ -1,36 +1,21 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import "../../styles/navbar.css";
 import {Navbar, Nav} from "react-bootstrap";
+import {useDispatch, useSelector} from "react-redux";
+import {checkIfUserLoggedOut} from "../../redux/actions";
 
 export default function NavbarMovie() {
 
-  // let nav = null;
+  const dispatch = useDispatch();
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-
-    useEffect(() => {
-    if(sessionStorage.getItem("accessToken")) {
-      // console.log("coucou");
-      setIsLoggedIn(true);
-      return;
-    }
-    // console.log( "pas coucou");
-    setIsLoggedIn(false);
-    return;
-  }, [sessionStorage.getItem("accessToken")]);
-
-  // useEffect(() => {
-  //   if(sessionStorage.getItem("accessToken")) {
-  //     console.log("coucou");
-  //     setIsLoggedIn(true);
-  //   }
-  // }, [isLoggedIn]);
+  const isLoggedIn = useSelector(state => state.loggedInReducer);
 
   const logout = () => {
     sessionStorage.removeItem("accessToken");
     sessionStorage.removeItem("imageUrl");
     sessionStorage.removeItem("movies");
     sessionStorage.removeItem("favMovies");
+    dispatch(checkIfUserLoggedOut());
     document.location.reload(true);
   }
 
@@ -38,7 +23,7 @@ export default function NavbarMovie() {
 
   return(
     <Navbar bg="light">
-      {isLoggedIn ?
+      {isLoggedIn[0] ?
           (<Nav className="ml-auto">
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/mymovies">My movies</Nav.Link>

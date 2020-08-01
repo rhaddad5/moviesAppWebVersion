@@ -5,13 +5,16 @@ import {useHistory} from "react-router-dom";
 import "../../styles/loginAndSignup.css";
 import "../../styles/alerts.css";
 import {Alert} from "react-bootstrap";
+import {useDispatch} from "react-redux";
 
 export default function Login({location}) {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(false);
+
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const handleChangeEmail = (event) => {
     setEmail(event.target.value);
@@ -22,9 +25,8 @@ export default function Login({location}) {
   };
 
   const loginUser = () => {
-    login(email, password)
+    login(email, password, dispatch)
     .then(data => {
-      console.log(data.response)
       if(data.response) {
         setErrorMessage(data.response.data)
       } else {

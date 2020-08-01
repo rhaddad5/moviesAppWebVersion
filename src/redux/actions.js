@@ -18,3 +18,17 @@ export const fetchFavouriteMovies = (data) => ({
     data
   }
 });
+
+export const checkIfUserLoggedIn = (data) => ({
+  type: "LOGGED_IN_USER",
+  payload: {
+    data
+  }
+});
+
+export const checkIfUserLoggedOut = (data) => ({
+  type: "LOGGED_OUT_USER",
+  payload: {
+    data
+  }
+});
