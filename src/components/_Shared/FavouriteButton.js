@@ -15,7 +15,7 @@ export default function FavouriteButton({movieTitle, movieDate, movieId, movieOv
 
   useEffect(() => {
     isFav();
-  }, []);
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const dispatch = useDispatch();
 

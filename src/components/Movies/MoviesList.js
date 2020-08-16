@@ -12,7 +12,7 @@ export default function MoviesList({movies}) {
         const imagePath = `https://image.tmdb.org/t/p/w400/${movie.poster_path}`;
         const idPath = `/${movie.id}`;
         return(
-          <Link to={idPath} className="movieLink">
+          <Link to={idPath} className="movieLink" key={movie.id}>
             <li className="cards__item">
               <div className="card">
                 <div className="card__image card__image--flowers">

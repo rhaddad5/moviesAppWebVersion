@@ -5,13 +5,11 @@ export const saveFavouriteMovie = (title, releaseDate, id, overview, imagePath) 
   const token = sessionStorage.getItem("accessToken");
   const headers = {"Authorization": `Bearer ${token}`};
   axios.post("https://movies-rest-api-web.herokuapp.com/movies", {title: title, releaseDate: releaseDate, tmdbId: id, overview: overview, imagePath: imagePath}, {headers: headers})
-  .then((res) => console.log("REPONSE POST", res))
   .catch((e) => console.log("ERREUR POST", e))
 };
 
 export const destroyFavouriteMovie = (id) => {
   axios.delete(`https://movies-rest-api-web.herokuapp.com/movies/${id}`)
-  .then((res) => console.log("REPONSE DELETE", res))
   .catch((e) => console.log("ERREUR DELETE", e))
 };
 

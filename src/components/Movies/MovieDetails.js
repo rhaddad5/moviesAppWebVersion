@@ -14,7 +14,7 @@ export default function MovieDetails() {
 
   useEffect(() => {
     movieDetailsSearch(id, dispatch);
-  }, []);
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const movieInfo = useSelector(state => state.movieDetailsReducer);
 

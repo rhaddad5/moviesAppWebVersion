@@ -8,9 +8,7 @@
   color: rgba(0,0,0,0.3);
   position: absolute;
   bottom: 0;
-  top: 100%;
   width: 100%;
-  margin: 0;
 }
 .footer-links {
   display: flex;

@@ -26,7 +26,7 @@ export default function Signup() {
   };
 
   const handleChangeEmail = (event) => {
-    const regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ //eslint-disable-line
     if(regex.test(event.target.value)) {
       setEmail(event.target.value);
       setErrorMessage(false);
@@ -48,7 +48,6 @@ export default function Signup() {
   const createUser = () => {
     signup(username, email, password, images[0])
     .then(data => {
-      console.log(data.response)
       if(data.response) {
         setErrorMessage(data.response.data)
       } else {
@@ -97,7 +96,7 @@ export default function Signup() {
           <Form.Label>Enter Password</Form.Label>
           <Form.Control type="password" className="inputLogin" placeholder="Password" onChange={handleChangePassword}/>
         </Form.Group>
-        <Button onClick={() => startUpload()} className="uploadPhoto">📷 Upload a photo</Button>
+        <Button onClick={() => startUpload()} className="uploadPhoto"><span role="img" aria-label="camera">📷</span> Upload a photo</Button>
         <br></br>
         <section>
           {images.map(i => <Image

@@ -10,14 +10,12 @@ export default function NavbarMovie() {
 
   const isLoggedIn = useSelector(state => state.loggedInReducer);
 
-  console.log(isLoggedIn);
-
   useEffect(() => {
     const token = sessionStorage.getItem('accessToken');
     if(token) {
       dispatch(checkIfUserLoggedIn(token));
     }
-  }, []);
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const logout = () => {
     sessionStorage.removeItem("accessToken");

@@ -20,8 +20,8 @@ export default function Layout() {
           <Route exact path="/mymovies" component={FavouriteMovies}/>
           <Route exact path="/:id" component={MovieDetails}/>
         </Switch>
-        <Footer/>
       </div>
+      <Footer/>
     </Router>
   )
 }

@@ -11,22 +11,21 @@ export default function FavouriteMovies() {
 
   useEffect(() => {
     getFavouriteMovies(dispatch);
-  }, []);
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const favouriteMovies = useSelector(state => state.favMoviesReducer);
 
   const usernames = [];
   favouriteMovies.map(movie => usernames.push(movie.user));
-  console.log(usernames)
 
   return(
     <div>
-      {favouriteMovies[0] ? <h1 className="favTitle">Hi {usernames[0]}! Here is your movie list</h1> : <h1 className="favTitle noFavTitle">Hi! You do not have any movie in your list yet, click here to add some!</h1>}
+      {favouriteMovies[0] ? <h1 className="favTitle">Hi {usernames[0]}! Here is your movie list</h1> : <h1 className="favTitle noFavTitle">Hi! You do not have any movie in your list yet, click <Link to="/">here</Link>   to add some!</h1>}
       <ul className="cards">
         {favouriteMovies.map((movie) => {
           const idPath = `/${movie.tmdbId}`;
           return(
-            <Link to={idPath} className="movieLink">
+            <Link to={idPath} className="movieLink" key={movie.tmdbId}>
               <li className="cards__item">
                 <div className="card">
                   <div className="card__image card__image--flowers">
